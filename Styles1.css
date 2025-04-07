@@ -1,0 +1,254 @@
+/* Reset de estilos */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  background-color: #F5F5F5;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Cabecera */
+header {
+  background: #1f618d;
+  color: #fefef7;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+}
+
+header h1 {
+  flex: 1;
+  text-align: center;
+}
+
+/* Botón de menú */
+.menu-toggle {
+  font-size: 1.5em;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+/* Menú lateral */
+.side-menu {
+  position: fixed;
+  top: 0;
+  left: -250px;
+  width: 250px;
+  height: 100%;
+  background: #2471a3;
+  color: white;
+  padding-top: 60px;
+  transition: left 0.3s ease;
+}
+
+.side-menu.open {
+  left: 0;
+}
+
+.side-menu ul {
+  list-style: none;
+  padding: 10px;
+}
+
+.side-menu ul li {
+  padding: 15px;
+  text-align: center;
+}
+
+.side-menu ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  display: block;
+  padding: 10px;
+}
+
+.side-menu ul li a:hover {
+  background: #2e86c1;
+}
+
+/* Contenido principal */
+.main-content {
+  padding: 20px;
+  text-align: center;
+}
+
+/* Galería de imágenes */
+.gallery {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.image-container {
+  width: 250px;
+  height: 150px;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Formulario de contacto */
+form {
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #f4f4f4;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+form label {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+form input, form textarea {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+form button {
+  margin-top: 10px;
+  padding: 10px;
+  background: #333;
+  color: white;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+form button:hover {
+  background: #555;
+}
+
+/* Footer */
+footer {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  background: #333;
+  color: #fefef7;
+  text-align: center;
+  padding: 15px;
+}
+/* Ajuste del menú para móviles */
+@media screen and (max-width: 768px) {
+  .side-menu {
+    width: 70%; /* Menú más adaptado en móviles */
+  }
+}
+
+/* Para asegurarse de que el contenido no se mueva cuando el menú se abre */
+.side-menu.open {
+  left: 0;
+}
+/* Ajustes generales para que la página se adapte al espacio disponible */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Ajuste de imágenes */
+.image-container {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+
+.image-container img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* Ajustes de la galería para ocupar el espacio disponible */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 10px;
+  padding: 10px;
+}
+
+/* Ajuste del contenido principal */
+.main-content {
+  flex-grow: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Ajuste del menú lateral */
+.side-menu {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  max-width: 300px;
+  height: 100%;
+  background: #2471a3;
+  transition: left 0.3s ease;
+}
+
+.side-menu.open {
+  left: 0;
+}
+
+/* Botón de cerrar menú */
+.close-menu {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  align-self: flex-end;
+  margin: 10px;
+}
+
+/* Responsividad para móviles */
+@media (max-width: 768px) {
+  .side-menu {
+    width: 80%;
+  }
+}
+
+main {
+  flex-grow: 1;
+}
+
+.full-screen {
+  min-height: calc(100vh - 100px); /* Ajusta el espacio dependiendo del tamaño del header y footer */
+}
