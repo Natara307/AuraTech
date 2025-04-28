@@ -1,0 +1,162 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Colores */
+:root {
+  --color1: #E9F2F9;
+  --color2: #B9D1EA;
+  --color3: #8CACC5;
+  --color4: #547AA8;
+  --color5: #2E3E5C;
+}
+
+/* Body */
+body {
+  font-family: 'Lucida Sans', 'Arial', sans-serif;
+  background-color: var(--color1);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Header */
+header {
+  background: var(--color4);
+  color: #fff;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+}
+
+header h1 {
+  flex: 1;
+  text-align: center;
+}
+
+.menu-toggle {
+  font-size: 1.5em;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+/* Menu lateral */
+.side-menu {
+  position: fixed;
+  top: 0;
+  left: -250px;
+  width: 250px;
+  height: 100%;
+  background: var(--color5);
+  color: white;
+  padding-top: 60px;
+  transition: left 0.3s ease;
+}
+
+.side-menu.open {
+  left: 0;
+}
+
+.side-menu ul {
+  list-style: none;
+}
+
+.side-menu ul li {
+  padding: 15px;
+  text-align: center;
+}
+
+.side-menu ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  display: block;
+}
+
+.side-menu ul li a:hover {
+  background: var(--color3);
+}
+
+/* Main */
+.main-content {
+  flex-grow: 1;
+}
+
+/* Banner Slider */
+.banner-slider {
+  position: relative;
+  overflow: hidden;
+  height: 300px;
+}
+
+.slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  color: var(--color5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 1s ease;
+  text-align: center;
+}
+
+.slide.active {
+  opacity: 1;
+}
+
+.slide h2 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.slide p {
+  font-size: 1.2rem;
+}
+
+/* Categorías */
+.categories {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  background: var(--color1);
+}
+
+.category {
+  background: var(--color2);
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.category:hover {
+  transform: translateY(-5px);
+}
+
+.category img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.category h3 {
+  margin-top: 10px;
+  color: var(--color5);
+}
+
+/* Footer */
+footer {
+  background: var(--color5);
+  color: #fefef7;
+  text-align: center;
+  padding: 15px;
+}
