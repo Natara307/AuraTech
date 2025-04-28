@@ -3,16 +3,24 @@ document.addEventListener('DOMContentLoaded', () => {
   const sideMenu = document.getElementById('side-menu');
   const menuLinks = document.querySelectorAll('.side-menu a');
   const slides = document.querySelectorAll('.slide');
+  const closeMenu = document.getElementById('close-menu');
   
   // Menú hamburguesa
   menuToggle.addEventListener('click', () => {
     sideMenu.classList.toggle('open');
+    document.body.classList.toggle('menu-open'); // <-- AÑADIDO
   });
 
   menuLinks.forEach(link => {
     link.addEventListener('click', () => {
       sideMenu.classList.remove('open');
+      document.body.classList.remove('menu-open');
     });
+  });
+
+  closeMenu.addEventListener('click', () => {
+    sideMenu.classList.remove('open');
+    document.body.classList.remove('menu-open');
   });
 
   // Slider automático
