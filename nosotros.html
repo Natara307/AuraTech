@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auratech - Nosotros</title>
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="script.js"></script>
+</head>
+<style>
+.nosotros-section {
+  max-width: 900px;
+  padding: 40px 20px;
+  background: var(--color2);
+  color: var(--color5);
+  border-radius: 12px;
+  margin: 30px auto;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  animation: fadeIn 1s ease;
+}
+
+.nosotros-section h2 {
+  font-size: 2.2rem;
+  margin-bottom: 20px;
+  color: var(--color4);
+  text-align: center;
+}
+
+.nosotros-section p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 20px;
+  text-align: justify;
+}
+
+.nosotros-section .equipo {
+  margin-top: 30px;
+}
+
+.nosotros-section .equipo h3 {
+  color: var(--color4);
+  margin-bottom: 10px;
+}
+
+.nosotros-section .equipo ul {
+  list-style: disc;
+  padding-left: 20px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+  </style>
+<body>
+  <header>
+    <button id="menu-toggle" class="menu-toggle">☰</button>
+    <h1>Auratech</h1>
+  </header>
+
+  <nav id="side-menu" class="side-menu">
+    <button id="close-menu" class="close-menu">✖</button>
+    <ul>
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="servicios.html">Servicios</a></li>
+      <li><a href="galeria.html">Galería</a></li>
+      <li><a href="nosotros.html" class="active">Nosotros</a></li>
+      <li><a href="contacto.html">Contacto</a></li>
+    </ul>
+  </nav>
+
+  <main class="main-content1">
+    <section class="nosotros-section">
+      <h2>Sobre Nosotros</h2>
+      <p>
+        En <strong>Auratech</strong>, nos dedicamos a desarrollar soluciones tecnológicas accesibles y educativas. Nuestro equipo trabaja con pasión para diseñar cabinas de flujo laminar de bajo costo, ideales para entornos escolares donde la seguridad y la ciencia deben ir de la mano.
+      </p>
+      <p>
+        Creemos en la educación práctica, segura y al alcance de todos. Esta iniciativa busca democratizar el acceso a equipos de laboratorio, fomentando el aprendizaje científico desde una edad temprana.
+      </p>
+
+      <div class="equipo">
+        <h3>¿Quiénes somos?</h3>
+        <ul>
+          <li>Estudiantes e ingenieros comprometidos con la innovación educativa</li>
+          <li>Docentes con vocación científica y social</li>
+          <li>Colaboradores de distintas disciplinas que creen en el cambio</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Contacto: ejemplo@email.com | Tel: 123-456-7890</p>
+  </footer>
+</body>
+</html>

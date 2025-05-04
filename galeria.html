@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Galería - Auratech</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .galeria-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 20px;
+    justify-items: center;
+    }
+
+    .card-container {
+      perspective: 1000px;
+      width: 250px;
+      height: 250px;
+      margin: 20px;
+    }
+
+    .card {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.6s;
+      cursor: pointer;
+    }
+
+    .card-container:hover .card {
+      transform: rotateY(180deg);
+    }
+
+    .card-front, .card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .card-front img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .card-back {
+      background-color: #fff;
+      transform: rotateY(180deg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 15px;
+      box-sizing: border-box;
+      text-align: center;
+    }
+  </style>
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <header>
+    <button id="menu-toggle" class="menu-toggle">☰</button>
+    <h1>Auratech</h1>
+  </header>
+
+  <nav id="side-menu" class="side-menu">
+    <button id="close-menu" class="close-menu">✖</button>
+    <ul>
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="servicios.html">Servicios</a></li>
+      <li><a href="galeria.html">Galería</a></li>
+      <li><a href="nosotros.html">Nosotros</a></li>
+      <li><a href="contacto.html">Contacto</a></li>
+    </ul>
+  </nav>
+  <main class="main-content">
+    <section class="galeria-container">
+      <div class="card-container">
+        <div class="card">
+          <div class="card-front">
+            <img src="cabina1.jpg" alt="Vista frontal de la cabina">
+          </div>
+          <div class="card-back">
+            <p>Vista frontal: panel de vidrio y filtro HEPA.</p>
+          </div>
+        </div>
+      </div>
+  
+      <div class="card-container">
+        <div class="card">
+          <div class="card-front">
+            <img src="cabina2.jpg" alt="Vista lateral">
+          </div>
+          <div class="card-back">
+            <p>Vista lateral: acceso ergonómico para manipulación segura.</p>
+          </div>
+        </div>
+      </div>
+  
+      <div class="card-container">
+        <div class="card">
+          <div class="card-front">
+            <img src="cabina3.jpg" alt="Interior de la cabina">
+          </div>
+          <div class="card-back">
+            <p>Interior: espacio con luz UV y superficie de acero inoxidable.</p>
+          </div>
+        </div>
+      </div>
+  
+      <div class="card-container">
+        <div class="card">
+          <div class="card-front">
+            <img src="cabina4.jpg" alt="Filtro HEPA en detalle">
+          </div>
+          <div class="card-back">
+            <p>Detalle del filtro HEPA: retención del 99.97% de partículas.</p>
+          </div>
+        </div>
+      </div>
+  
+      <div class="card-container">
+        <div class="card">
+          <div class="card-front">
+            <img src="cabina5.jpg" alt="Panel de control">
+          </div>
+          <div class="card-back">
+            <p>Panel de control con indicador digital y luces LED.</p>
+          </div>
+        </div>
+      </div>
+  
+      <div class="card-container">
+        <div class="card">
+          <div class="card-front">
+            <img src="cabina6.jpg" alt="Cabina cerrada">
+          </div>
+          <div class="card-back">
+            <p>Cabina en estado de reposo con compuertas cerradas.</p>
+          </div>
+        </div>
+      </div>
+  
+      <div class="card-container">
+        <div class="card">
+          <div class="card-front">
+            <img src="cabina7.jpg" alt="Sistema de ventilación">
+          </div>
+          <div class="card-back">
+            <p>Ventilación doble para garantizar flujo laminar constante.</p>
+          </div>
+        </div>
+      </div>
+  
+      <div class="card-container">
+        <div class="card">
+          <div class="card-front">
+            <img src="cabina8.jpg" alt="Luces UV">
+          </div>
+          <div class="card-back">
+            <p>Luces UV integradas para esterilización eficiente.</p>
+          </div>
+        </div>
+      </div>
+  
+      <div class="card-container">
+        <div class="card">
+          <div class="card-front">
+            <img src="cabina9.jpg" alt="Gabinete de bioseguridad">
+          </div>
+          <div class="card-back">
+            <p>Gabinete clase II con doble filtro HEPA y triple protección.</p>
+          </div>
+        </div>
+      </div>
+  
+      <div class="card-container">
+        <div class="card">
+          <div class="card-front">
+            <img src="cabina10.jpg" alt="Vista desde arriba">
+          </div>
+          <div class="card-back">
+            <p>Vista superior mostrando sistema de distribución de aire.</p>
+          </div>
+        </div>
+      </div>
+  
+      <div class="card-container">
+        <div class="card">
+          <div class="card-front">
+            <img src="cabina11.jpg" alt="Materiales esterilizados">
+          </div>
+          <div class="card-back">
+            <p>Materiales preparados para inoculación en zona estéril.</p>
+          </div>
+        </div>
+      </div>
+  
+      <div class="card-container">
+        <div class="card">
+          <div class="card-front">
+            <img src="cabina12.jpg" alt="Uso en laboratorio">
+          </div>
+          <div class="card-back">
+            <p>Cabina en uso durante experimento con hongos.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Puedes duplicar más tarjetas aquí -->
+    </section>
+  </main>
+
+  <footer>
+    <p>Contacto: ejemplo@email.com | Tel: 123-456-7890</p>
+  </footer>
+</body>
+</html>
