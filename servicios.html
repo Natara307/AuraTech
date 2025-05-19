@@ -6,6 +6,7 @@
   <title>Servicios | Auratech</title>
   <link rel="stylesheet" href="styles.css">
   <script defer src="script.js"></script>
+  <script src="https://kit.fontawesome.com/TU-KIT-ID.js" crossorigin="anonymous"></script>
   <style>
     .category {
       transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -109,8 +110,95 @@
     </section>
   </main>
 
-  <footer>
-    <p>Contacto: ejemplo@email.com | Tel: 123-456-7890</p>
-  </footer>
+  <footer class="footer-mejorado">
+  <div class="footer-container">
+    <!-- Columna 1: Mapa -->
+    <div class="footer-col footer-map">
+      <h3>Ubicación</h3>
+      <iframe
+        src="https://www.google.com/maps?q=Cra.+100b+%2315385,+Bogotá,+Colombia&output=embed"
+        width="100%"
+        height="250"
+        style="border:0;"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+      ></iframe>
+    </div>
+
+    <!-- Columna 2: Contacto -->
+    <div class="footer-col footer-contact">
+      <h3>Contáctanos</h3>
+      <ul class="contact-info">
+        <li>
+          <i class="fas fa-map-marker-alt"></i>
+          <span>Cra. 100b #15385, Bogotá</span>
+        </li>
+        <li>
+          <i class="fas fa-envelope"></i>
+          <a href="mailto:info@auratech.com">info@auratech.com</a>
+        </li>
+        <li>
+          <i class="fas fa-phone"></i>
+          <a href="tel:+573001112233">+57 300 111 22 33</a>
+        </li>
+        <li>
+          <i class="fas fa-clock"></i>
+          <span>Lun-Vie: 8:00 AM - 6:00 PM</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Columna 3: Mapa del sitio -->
+    <div class="footer-col footer-sitemap">
+      <h3>Mapa del sitio</h3>
+      <ul class="sitemap-links">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="servicios.html">Servicios</a></li>
+        <li><a href="galeria.html">Galería</a></li>
+        <li><a href="nosotros.html">Nosotros</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+      </ul>
+    </div>
+
+    <!-- Columna 4: Redes sociales -->
+    <div class="footer-col footer-social">
+      <h3>Síguenos</h3>
+      <div class="social-icons">
+        <a href="https://facebook.com/auratech" target="_blank" rel="noopener">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="https://instagram.com/auratech" target="_blank" rel="noopener">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://twitter.com/auratech" target="_blank" rel="noopener">
+          <i class="fab fa-twitter"></i>
+        </a>
+        <a href="https://linkedin.com/company/auratech" target="_blank" rel="noopener">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+        <a href="https://youtube.com/auratech" target="_blank" rel="noopener">
+          <i class="fab fa-youtube"></i>
+        </a>
+      </div>
+      
+      <div class="footer-logos">
+        <h3>Certificaciones</h3>
+        <div class="logos-container">
+          <img src="logo1.png" alt="Certificación 1">
+          <img src="logo2.png" alt="Certificación 2">
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Copyright -->
+  <div class="footer-bottom">
+    <p>&copy; 2023 Auratech. Todos los derechos reservados.</p>
+  </div>
+</footer>
+  
+  
+
 </body>
 </html>
