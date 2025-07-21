@@ -523,3 +523,70 @@ form button:hover {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+/*recursos*/
+.recursos {
+  padding: 50px 20px;
+  background-color: var(--color2);
+  color: var(--color5);
+}
+
+.recursos h2 {
+  font-size: 2em;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.graficos {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  margin-bottom: 40px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.grafico {
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s;
+}
+
+
+.grafico h3 {
+  margin-bottom: 10px;
+  color: var(--color5);
+}
+
+.grafico img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+/* Enlace de descarga */
+.descarga-doc {
+  text-align: center;
+  font-size: 1.1em;
+}
+
+.descarga-doc a {
+  color: var(--color5);
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.descarga-doc a:hover {
+  color: var(--color4);
+}
+
+@media (max-width: 768px) {
+  .graficos {
+    grid-template-columns: 1fr;
+  }
+}
+
