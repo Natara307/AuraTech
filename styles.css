@@ -474,6 +474,18 @@ form button:hover {
   font-size: 1.2rem;
   transition: var(--transition);
 }
+/* Añade esto a tu archivo styles.css */
+.social-icons img {
+  width: 35px;       /* Ancho fijo */
+  height: 35px;      /* Alto fijo */
+  object-fit: cover;  /* Ajusta la imagen sin deformarla */
+  border-radius: 50%; /* Forma circular (opcional) */
+  transition: all 0.3s ease;
+}
+
+.social-icons img:hover {
+  transform: scale(1.1); /* Efecto hover */
+}
 
 .social-icons a:hover {
   background-color: var(--color3);
