@@ -362,6 +362,8 @@ form button:hover {
 .descarga-doc {
   text-align: center;
   font-size: 1.1em;
+  padding-top: 50px; /*espacio superior */
+  padding-bottom: 20px; /*espacio inferior */
 }
 
 .descarga-doc a {
@@ -580,3 +582,4 @@ form button:hover {
     font-size: 1rem;
   }
 }
+
