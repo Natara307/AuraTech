@@ -583,3 +583,126 @@ form button:hover {
   }
 }
 
+/* ==================== */
+/* SERVICIOS */
+/* ==================== */
+.services {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding: 40px 20px;
+}
+
+.service-block {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.service-block.reverse {
+  flex-direction: row-reverse;
+}
+
+.service-image img {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.service-text {
+  flex: 1;
+}
+
+.service-text h3 {
+  color: var(--color4);
+  margin-bottom: 10px;
+  font-size: 1.6rem;
+}
+
+.service-text p {
+  color: var(--color5);
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+/* ==================== */
+/* POR QUÉ ELEGIRNOS */
+/* ==================== */
+.porque-elegirnos {
+  background-color: #f9fbfd; /* clarito */
+  padding: 40px 20px;
+  border-radius: 12px;
+  margin-top: 40px;
+  text-align: center;
+}
+
+.porque-elegirnos h3 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: var(--color4);
+}
+
+.porque-elegirnos ul {
+  list-style: none;
+  padding: 0;
+  font-size: 1.1rem;
+  color: var(--color5);
+}
+
+.porque-elegirnos li {
+  margin-bottom: 10px;
+}
+
+/* ==================== */
+/* ASESORÍA */
+/* ==================== */
+.asesoria {
+  background-color: var(--color4); /* más oscurito */
+  color: var(--text-light);
+  padding: 50px 20px;
+  border-radius: 12px;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.asesoria h3 {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+}
+
+.asesoria p {
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+}
+
+.btn-asesoria {
+  display: inline-block;
+  padding: 12px 25px;
+  background: var(--color5);
+  color: var(--text-light);
+  text-decoration: none;
+  border-radius: 8px;
+  transition: var(--transition);
+  font-weight: bold;
+}
+
+.btn-asesoria:hover {
+  background: #1f2d44;
+  transform: scale(1.05);
+}
+.image {
+  flex: 1;
+  background: url("cabina.jpg") no-repeat center center/cover;
+}
+.text {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  background-color: #f9f9f9; /* Fondo sólido */
+}
+
+
