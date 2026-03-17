@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auratech</title>
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="script.js"></script>
+  <script defer src="common.js"></script>
+  <script src="https://kit.fontawesome.com/TU-KIT-ID.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header>
+      <button id="menu-toggle" class="menu-toggle">☰</button>
+      <h1>Auratech</h1>
+    </header>
+    <nav id="side-menu" class="side-menu">
+      <button id="close-menu" class="close-menu">✖</button>
+    </nav>
+  
+    <section class="recursos">
+        <h2>Recopilación de datos</h2>
+      
+       <!-- REEMPLAZA SOLO LA PARTE DE GRAFICOS EN TU HTML -->
+<div class="graficos">
+  <div class="grafico">
+    <h3>Análisis de datos</h3>
+    <canvas id="graficoTemp"></canvas>
+  </div>
+
+  <div class="grafico">
+    <h3>Indicadores clave</h3>
+    <canvas id="graficoHum"></canvas>
+  </div>
+
+  <div class="grafico">
+    <h3>Crecimiento</h3>
+    <canvas id="graficoPart"></canvas>
+  </div>
+
+  <div class="grafico">
+    <h3>Proyecciones</h3>
+    <canvas id="graficoGeneral"></canvas>
+  </div>
+</div>
+
+<!-- AGREGA ESTO ANTES DE CERRAR BODY -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+// 🔥 CONFIGURA ESTO DESDE FIREBASE
+const firebaseConfig = {
+  apiKey: "TU_API_KEY",
+  authDomain: "TU_PROYECTO.firebaseapp.com",
+  databaseURL: "https://TU_PROYECTO.firebaseio.com",
+  projectId: "TU_PROYECTO",
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+// 🎨 FUNCION PARA CREAR GRAFICAS
+function crearGrafico(id, label) {
+  return new Chart(document.getElementById(id), {
+    type: 'line',
+    data: {
+      labels: [],
+      datasets: [{
+        label: label,
+        data: [],
+        borderWidth: 2,
+        tension: 0.3
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        x: { display: true },
+        y: { beginAtZero: true }
+      }
+    }
+  });
+}
+
+// 📊 CREAR GRAFICAS
+const grafTemp = crearGrafico('graficoTemp', 'Temperatura °C');
+const grafHum = crearGrafico('graficoHum', 'Humedad %');
+const grafPart = crearGrafico('graficoPart', 'Partículas');
+const grafGeneral = crearGrafico('graficoGeneral', 'Datos Generales');
+
+// 🔄 ESCUCHAR DATOS EN TIEMPO REAL
+const dataRef = ref(db, 'sensores');
+
+onValue(dataRef, (snapshot) => {
+  const datos = snapshot.val();
+  if (!datos) return;
+
+  const tiempos = [];
+  const temp = [];
+  const hum = [];
+  const part = [];
+
+  for (let key in datos) {
+    tiempos.push(datos[key].tiempo);
+    temp.push(datos[key].temperatura);
+    hum.push(datos[key].humedad);
+    part.push(datos[key].particulas);
+  }
+
+  // actualizar graficas
+  function actualizar(chart, labels, data) {
+    chart.data.labels = labels;
+    chart.data.datasets[0].data = data;
+    chart.update();
+  }
+
+  actualizar(grafTemp, tiempos, temp);
+  actualizar(grafHum, tiempos, hum);
+  actualizar(grafPart, tiempos, part);
+
+  // general (promedio simple)
+  const general = temp.map((t, i) => (t + hum[i] + part[i]) / 3);
+  actualizar(grafGeneral, tiempos, general);
+});
+</script>
+
+
+
+        <div class="graficodoc">
+        <div class="descarga-doc">
+          <h3>Documento para descargar</h3>
+          <p>
+            <a href="Auratech_2025.pdf" download target="_blank">
+              📄 Descargar documento PDF
+            </a>
+          </p>
+        </div>
+        </div>
+
+
+      </section>
+
+      
+<footer class="footer-mejorado">
+    <div class="footer-container">
+      <!-- Columna 1: Mapa -->
+      <div class="footer-col footer-map">
+        <h3>Ubicación</h3>
+        <iframe
+          src="https://www.google.com/maps?q=Cra.+100b+%2315385,+Bogotá,+Colombia&output=embed"
+          width="100%"
+          height="250"
+          style="border:0;"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+      </div>
+  
+      <!-- Columna 2: Contacto -->
+      <div class="footer-col footer-contact">
+        <h3>Contáctanos</h3>
+        <ul class="contact-info">
+          <li>
+            <i class="fas fa-map-marker-alt"></i>
+            <span>Cra. 100b #15385, Bogotá</span>
+          </li>
+          <li>
+            <i class="fas fa-envelope"></i>
+            <a href="mailto:info@auratech.com">info@auratech.com</a>
+          </li>
+          <li>
+            <i class="fas fa-phone"></i>
+            <a href="tel:+573001112233">+57 300 111 22 33</a>
+          </li>
+          <li>
+            <i class="fas fa-clock"></i>
+            <span>Lun-Vie: 8:00 AM - 6:00 PM</span>
+          </li>
+        </ul>
+      </div>
+  
+      <!-- Columna 3: Mapa del sitio -->
+      <div class="footer-col footer-sitemap">
+        <h3>Mapa del sitio</h3>
+        <ul class="sitemap-links">
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="servicios.html">Servicios</a></li>
+          <li><a href="galeria.html">Galería</a></li>
+          <li><a href="nosotros.html">Nosotros</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+          <li><a href="Resources.html">Recursos</a></li>
+        </ul>
+      </div>
+  
+      <!-- Columna 4: Redes sociales -->
+      <div class="footer-col footer-social">
+        <h3>Síguenos</h3>
+        <div class="social-icons">
+          <a href="https://facebook.com/auratech" target="_blank" rel="noopener">
+            <i class="fab fa-facebook-f"></i>
+            <img src="facebook.png" alt="">
+          </a>
+          <a href="https://instagram.com/auratech" target="_blank" rel="noopener">
+            <i class="fab fa-instagram"></i>
+            <img src="instagram.png" alt="">
+          </a>
+          <a href="https://twitter.com/auratech" target="_blank" rel="noopener">
+            <i class="fab fa-twitter"></i>
+            <img src="x.png" alt="">
+          </a>
+          <a href="https://linkedin.com/company/auratech" target="_blank" rel="noopener">
+            <i class="fab fa-linkedin-in"></i>
+            <img src="linkedin.png" alt="">
+          </a>
+          <a href="https://youtube.com/auratech" target="_blank" rel="noopener">
+            <i class="fab fa-youtube"></i>
+            <img src="youtube.png" alt="">
+            
+          </a>
+        </div>
+        
+        <div class="footer-logos">
+          <h3>Certificaciones</h3>
+          <div class="logos-container">
+            <img src="Logo Aura Tech.png" alt="Certificación 1">
+            <img src="Escudo_Reuven_Feuerstein.png" alt="Certificación 2">
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Copyright -->
+    <div class="footer-bottom">
+      <p>&copy; 2023 Auratech. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+    
+    
+  
+  </body>
+  </html>
+  
+
