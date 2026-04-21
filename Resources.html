@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auratech</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+<header>
+  <button id="menu-toggle" class="menu-toggle">☰</button>
+  <h1>Auratech</h1>
+</header>
+
+<nav id="side-menu" class="side-menu">
+  <button id="close-menu" class="close-menu">✖</button>
+</nav>
+
+<section class="recursos">
+  <h2>Recopilación de datos</h2>
+
+  <!-- 🔥 NIVEL EN TIEMPO REAL -->
+  <h3 id="nivelFlask">Nivel: ---</h3>
+
+  <!-- 📊 GRÁFICA -->
+  <div class="graficos">
+    <div class="grafico">
+      <h3>Temperatura en tiempo real</h3>
+      <canvas id="graficoTemp"></canvas>
+    </div>
+  </div>
+
+  <!-- 🔘 BOTÓN GRANDE -->
+  <div style="text-align:center; margin-top: 30px;">
+    <a href="interfas/home/house.html" style="
+        display: inline-block;
+        padding: 20px 50px;
+        font-size: 22px;
+        background-color: #2196F3;
+        color: white;
+        text-decoration: none;
+        border-radius: 12px;
+        font-weight: bold;
+    ">
+        🏠 Grafica de temperatura automatica
+    </a>
+  </div>
+
+  <!-- 📄 DESCARGA -->
+  <div class="graficodoc">
+    <div class="descarga-doc">
+      <h3>Documento para descargar</h3>
+      <p>
+        <a href="Auratech_2026.pdf" download target="_blank">
+          📄 Descargar documento PDF
+        </a>
+      </p>
+    </div>
+  </div>
+
+</section>
+
+<footer class="footer-mejorado">
+  <div class="footer-container">
+
+    <!-- Mapa -->
+    <div class="footer-col footer-map">
+      <h3>Ubicación</h3>
+      <iframe
+        src="https://www.google.com/maps?q=Cra.+100b+%2315385,+Bogotá,+Colombia&output=embed"
+        width="100%"
+        height="250"
+        style="border:0;"
+        loading="lazy">
+      </iframe>
+    </div>
+
+    <!-- Contacto -->
+    <div class="footer-col footer-contact">
+      <h3>Contáctanos</h3>
+      <ul>
+        <li>Cra. 100b #15385, Bogotá</li>
+        <li>info@auratech.com</li>
+        <li>+57 300 111 22 33</li>
+        <li>Lun-Vie: 8:00 AM - 6:00 PM</li>
+      </ul>
+    </div>
+
+    <!-- Mapa del sitio -->
+    <div class="footer-col footer-sitemap">
+      <h3>Mapa del sitio</h3>
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="servicios.html">Servicios</a></li>
+        <li><a href="galeria.html">Galería</a></li>
+        <li><a href="nosotros.html">Nosotros</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+        <li><a href="Resources.html">Recursos</a></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; 2023 Auratech</p>
+  </div>
+</footer>
+
+<!-- 🔥 SCRIPT CORRECTO -->
+<script>
+const ctx = document.getElementById('graficoTemp').getContext('2d');
+
+let datosTemp = [];
+let labelsTemp = [];
+
+const grafTemp = new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: labelsTemp,
+    datasets: [{
+      label: 'Temperatura (°C)',
+      data: datosTemp,
+      borderWidth: 2,
+      tension: 0.3
+    }]
+  },
+  options: {
+    responsive: true,
+    animation: false
+  }
+});
+
+async function actualizarDatos() {
+  try {
+    const res = await fetch('/datos');
+    const data = await res.json();
+
+    let temp = parseFloat(data.temperatura);
+
+    if (!isNaN(temp)) {
+      const hora = new Date().toLocaleTimeString();
+
+      labelsTemp.push(hora);
+      datosTemp.push(temp);
+
+      document.getElementById("nivelFlask").innerText = "Nivel: " + data.nivel;
+
+      if (labelsTemp.length > 20) {
+        labelsTemp.shift();
+        datosTemp.shift();
+      }
+
+      grafTemp.update();
+    }
+
+  } catch (error) {
+    console.log("Error:", error);
+  }
+}
+
+setInterval(actualizarDatos, 2000);
+</script>
+
+</body>
+</html>
+  

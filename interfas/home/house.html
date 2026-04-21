@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Temperatura en tiempo real</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<h2>Temperatura en tiempo real</h2>
+<h3 id="nivel">Nivel: ---</h3>
+
+<canvas id="grafica"></canvas>
+
+<script>
+const ctx = document.getElementById('grafica').getContext('2d');
+
+let datos = [];
+let labels = [];
+
+const chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: labels,
+        datasets: [{
+            label: 'Temperatura (°C)',
+            data: datos,
+            borderWidth: 2
+        }]
+    },
+    options: {
+        responsive: true,
+        animation: false,
+        scales: {
+            y: {
+                beginAtZero: false
+            }
+        }
+    }
+});
+
+async function actualizar() {
+    try {
+        const res = await fetch('/datos');
+        const data = await res.json();
+
+        console.log("DATA:", data);
+
+        let temp = Number(data.temperatura);
+
+        if (!isNaN(temp)) {
+
+            labels.push(new Date().toLocaleTimeString());
+            datos.push(temp);
+
+            document.getElementById("nivel").innerText = "Nivel: " + data.nivel;
+
+            if (labels.length > 20) {
+                labels.shift();
+                datos.shift();
+            }
+
+            chart.update();
+        }
+
+    } catch (error) {
+        console.log("Error:", error);
+    }
+}
+
+setInterval(actualizar, 2000);
+</script>
+
+</body>
+</html>
