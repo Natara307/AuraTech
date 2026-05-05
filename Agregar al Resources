@@ -1,0 +1,107 @@
+<!-- REEMPLAZA SOLO LA PARTE DE GRAFICOS EN TU HTML -->
+<div class="graficos">
+  <div class="grafico">
+    <h3>Análisis de datos</h3>
+    <canvas id="graficoTemp"></canvas>
+  </div>
+
+  <div class="grafico">
+    <h3>Indicadores clave</h3>
+    <canvas id="graficoHum"></canvas>
+  </div>
+
+  <div class="grafico">
+    <h3>Crecimiento</h3>
+    <canvas id="graficoPart"></canvas>
+  </div>
+
+  <div class="grafico">
+    <h3>Proyecciones</h3>
+    <canvas id="graficoGeneral"></canvas>
+  </div>
+</div>
+
+<!-- AGREGA ESTO ANTES DE CERRAR BODY -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+// 🔥 CONFIGURA ESTO DESDE FIREBASE
+const firebaseConfig = {
+  apiKey: "TU_API_KEY",
+  authDomain: "TU_PROYECTO.firebaseapp.com",
+  databaseURL: "https://TU_PROYECTO.firebaseio.com",
+  projectId: "TU_PROYECTO",
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+// 🎨 FUNCION PARA CREAR GRAFICAS
+function crearGrafico(id, label) {
+  return new Chart(document.getElementById(id), {
+    type: 'line',
+    data: {
+      labels: [],
+      datasets: [{
+        label: label,
+        data: [],
+        borderWidth: 2,
+        tension: 0.3
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        x: { display: true },
+        y: { beginAtZero: true }
+      }
+    }
+  });
+}
+
+// 📊 CREAR GRAFICAS
+const grafTemp = crearGrafico('graficoTemp', 'Temperatura °C');
+const grafHum = crearGrafico('graficoHum', 'Humedad %');
+const grafPart = crearGrafico('graficoPart', 'Partículas');
+const grafGeneral = crearGrafico('graficoGeneral', 'Datos Generales');
+
+// 🔄 ESCUCHAR DATOS EN TIEMPO REAL
+const dataRef = ref(db, 'sensores');
+
+onValue(dataRef, (snapshot) => {
+  const datos = snapshot.val();
+  if (!datos) return;
+
+  const tiempos = [];
+  const temp = [];
+  const hum = [];
+  const part = [];
+
+  for (let key in datos) {
+    tiempos.push(datos[key].tiempo);
+    temp.push(datos[key].temperatura);
+    hum.push(datos[key].humedad);
+    part.push(datos[key].particulas);
+  }
+
+  // actualizar graficas
+  function actualizar(chart, labels, data) {
+    chart.data.labels = labels;
+    chart.data.datasets[0].data = data;
+    chart.update();
+  }
+
+  actualizar(grafTemp, tiempos, temp);
+  actualizar(grafHum, tiempos, hum);
+  actualizar(grafPart, tiempos, part);
+
+  // general (promedio simple)
+  const general = temp.map((t, i) => (t + hum[i] + part[i]) / 3);
+  actualizar(grafGeneral, tiempos, general);
+});
+</script>
+
+
