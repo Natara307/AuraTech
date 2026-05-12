@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auratech</title>
+
+  <link rel="stylesheet" href="../static/css/styles.css">
+  <script defer src="../static/js/common.js"></script>
+  <script defer src="../static/js/script.js"></script>
+
+  <style>
+    .estado-box {
+      text-align: center;
+      padding: 10px;
+      border-radius: 10px;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    .online {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    .offline {
+      background-color: #f44336;
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <button id="menu-toggle" class="menu-toggle">☰</button>
+  <h1>Auratech</h1>
+</header>
+
+<nav id="side-menu" class="side-menu">
+  <button id="close-menu" class="close-menu">✖</button>
+</nav>
+
+<section class="recursos">
+  <h2>Recopilación de datos link http://127.0.0.1:8000</h2>
+
+  <!-- 🔥 ESTADO -->
+  <div id="estadoServidor" class="estado-box offline">
+    🔴 Servidor desconectado
+  </div>
+
+  <h3 id="nivelFlask">Estado: ---</h3>
+
+<!-- 🚀 BOTÓN CON ASPECTO DE GRÁFICA -->
+<div style="text-align:center; margin-top: 40px;">
+  <a href="/house" id="btnDashboard" style="text-decoration: none;">
+   
+    <div class="grafico" style="
+        display: inline-block;
+        width: 280px;
+        cursor: pointer;
+        transition: transform 0.2s, box-shadow 0.2s;
+        position: relative;
+        overflow: hidden;
+    "
+    onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 8px 25px rgba(33,150,243,0.4)'"
+    onmouseout="this.style.transform='scale(1)'; this.style.boxShadow=''">
+
+      <h3 style="color:#2196F3;">📊 Tiempo Real</h3>
+
+      <!-- Mini gráfica decorativa -->
+      <canvas id="graficoPreview" height="120"></canvas>
+
+      <!-- Overlay con texto -->
+      <div style="
+          position: absolute;
+          bottom: 0; left: 0; right: 0;
+          background: linear-gradient(transparent, rgba(33,150,243,0.15));
+          padding: 10px;
+          border-radius: 0 0 12px 12px;
+      ">
+        <span style="
+            font-size: 14px;
+            font-weight: bold;
+            color: #2196F3;
+            letter-spacing: 1px;
+        ">🔴 VER EN VIVO →</span>
+      </div>
+
+    </div>
+  </a>
+</div>
+
+<!-- Script de la mini gráfica animada -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  // 🎨 Mini gráfica animada decorativa
+  const ctxPreview = document.getElementById('graficoPreview').getContext('2d');
+
+  // Datos de ejemplo para la preview
+  const labelsPreview = ['', '', '', '', '', '', '', '', '', ''];
+  const datosPreview = [30, 45, 35, 60, 50, 70, 55, 80, 65, 72];
+
+  const graficoPreview = new Chart(ctxPreview, {
+    type: 'line',
+    data: {
+      labels: labelsPreview,
+      datasets: [{
+        label: 'Temperatura',
+        data: datosPreview,
+        borderColor: '#2196F3',
+        backgroundColor: 'rgba(33, 150, 243, 0.1)',
+        borderWidth: 2,
+        tension: 0.4,
+        fill: true,
+        pointRadius: 3,
+        pointBackgroundColor: '#21CBF3'
+      }]
+    },
+    options: {
+      responsive: true,
+      animation: { duration: 800 },
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { display: false },
+        y: { display: false, beginAtZero: true }
+      }
+    }
+  });
+
+  // 🔄 Animación: datos que cambian solos para dar efecto "en vivo"
+  setInterval(() => {
+    graficoPreview.data.datasets[0].data.shift();
+    graficoPreview.data.datasets[0].data.push(
+      Math.floor(Math.random() * 50) + 30
+    );
+    graficoPreview.update('none');
+  }, 800);
+</script>
+
+
+<!-- AGREGA ESTO ANTES DE CERRAR BODY -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+// 🔥 CONFIGURA ESTO DESDE FIREBASE
+const firebaseConfig = {
+  apiKey: "TU_API_KEY",
+  authDomain: "TU_PROYECTO.firebaseapp.com",
+  databaseURL: "https://TU_PROYECTO.firebaseio.com",
+  projectId: "TU_PROYECTO",
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+// 🎨 FUNCION PARA CREAR GRAFICAS
+function crearGrafico(id, label) {
+  return new Chart(document.getElementById(id), {
+    type: 'line',
+    data: {
+      labels: [],
+      datasets: [{
+        label: label,
+        data: [],
+        borderWidth: 2,
+        tension: 0.3
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        x: { display: true },
+        y: { beginAtZero: true }
+      }
+    }
+  });
+}
+
+// 📊 CREAR GRAFICAS
+const grafTemp = crearGrafico('graficoTemp', 'Temperatura °C');
+const grafHum = crearGrafico('graficoHum', 'Humedad %');
+const grafPart = crearGrafico('graficoPart', 'Partículas');
+const grafGeneral = crearGrafico('graficoGeneral', 'Datos Generales');
+
+// 🔄 ESCUCHAR DATOS EN TIEMPO REAL
+const dataRef = ref(db, 'sensores');
+
+onValue(dataRef, (snapshot) => {
+  const datos = snapshot.val();
+  if (!datos) return;
+
+  const tiempos = [];
+  const temp = [];
+  const hum = [];
+  const part = [];
+
+  for (let key in datos) {
+    tiempos.push(datos[key].tiempo);
+    temp.push(datos[key].temperatura);
+    hum.push(datos[key].humedad);
+    part.push(datos[key].particulas);
+  }
+
+  // actualizar graficas
+  function actualizar(chart, labels, data) {
+    chart.data.labels = labels;
+    chart.data.datasets[0].data = data;
+    chart.update();
+  }
+
+  actualizar(grafTemp, tiempos, temp);
+  actualizar(grafHum, tiempos, hum);
+  actualizar(grafPart, tiempos, part);
+
+  // general (promedio simple)
+  const general = temp.map((t, i) => (t + hum[i] + part[i]) / 3);
+  actualizar(grafGeneral, tiempos, general);
+});
+</script>
+
+
+  <!-- 📄 DESCARGA -->
+  <div class="graficodoc">
+    <div class="descarga-doc">
+      <h3>Documento para descargar</h3>
+      <p>
+        <a href="../docs/Auratech_2026.pdf" download target="_blank">
+          📄 Descargar documento PDF
+        </a>
+      </p>
+    </div>
+  </div>
+
+</section>
+
+<footer class="footer-mejorado">
+  <div class="footer-container">
+
+    <div class="footer-col footer-map">
+      <h3>Ubicación</h3>
+      <iframe
+        src="https://www.google.com/maps?q=Cra.+100b+%2315385,+Bogotá,+Colombia&output=embed"
+        width="100%"
+        height="250"
+        style="border:0;"
+        loading="lazy">
+      </iframe>
+    </div>
+
+    <div class="footer-col footer-contact">
+      <h3>Contáctanos</h3>
+      <ul>
+        <li>Cra. 100b #15385, Bogotá</li>
+        <li>info@auratech.com</li>
+        <li>+57 300 111 22 33</li>
+        <li>Lun-Vie: 8:00 AM - 6:00 PM</li>
+      </ul>
+    </div>
+
+    <div class="footer-col footer-sitemap">
+      <h3>Mapa del sitio</h3>
+      <ul>
+        <li><a href="/">Inicio</a></li>
+        <li><a href="/services">Servicios</a></li>
+        <li><a href="/gallery">Galería</a></li>
+        <li><a href="/us">Nosotros</a></li>
+        <li><a href="/contact">Contacto</a></li>
+        <li><a href="/resources">Recursos</a></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; 2023 Auratech</p>
+  </div>
+</footer>
+
+<!-- 🔥 SCRIPT INTELIGENTE -->
+<script>
+const estadoServidor = document.getElementById("estadoServidor");
+const btn = document.getElementById("btnDashboard");
+
+async function verificarServidor() {
+  try {
+    const res = await fetch('/datos');
+    const data = await res.json();
+
+    estadoServidor.innerText = "🟢 Servidor activo";
+    estadoServidor.classList.remove("offline");
+    estadoServidor.classList.add("online");
+
+    document.getElementById("nivelFlask").innerText =
+      "Estado: " + data.estado +
+      " | Temp: " + data.temperatura + "°C" +
+      " | PWM: " + data.velocidad + "%";
+
+    return true;
+
+  } catch {
+    estadoServidor.innerText = "🔴 Servidor desconectado";
+    estadoServidor.classList.remove("online");
+    estadoServidor.classList.add("offline");
+
+    document.getElementById("nivelFlask").innerText = "Sin conexión";
+    return false;
+  }
+}
+
+// 🔥 CONTROL DEL BOTÓN
+btn.addEventListener("click", async function(e) {
+  e.preventDefault();
+
+  const activo = await verificarServidor();
+
+  if (activo) {
+    window.location.href = "/house";
+  } else {
+    alert("❌ El servidor Flask no está corriendo");
+  }
+});
+
+// 🔁 ACTUALIZACIÓN AUTOMÁTICA
+setInterval(verificarServidor, 2000);
+</script>
+
+</body>
+</html>
